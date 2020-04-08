@@ -1,0 +1,16 @@
+<% if flash[:error] %>
+    <p><%= flash[:error] %></p>
+<% end %>
+
+<%= form_for @user, url: login_path, method: :post do |fb| %>
+    <%= fb.label :name %>
+    <%= fb.text_field :name %>
+
+    <%= fb.label :password %>
+    <%= fb.password_field :password %>
+
+    <%= fb.submit "log in" %>
+<% end %>
+
+<br />
+<%= link_to "Create New User", new_user_path %>

@@ -1,0 +1,17 @@
+
+<% if flash[:error] then %>
+    <p><%= flash[:error] %></p>
+<% end %>
+
+<h1>Create new user</h1>
+
+<%= form_for @user do |fb| %>
+    Username: <%= fb.text_field :name %>
+    <br />    
+    Password: <%= fb.password_field :password %>
+    <br />
+    Password Confirmation: <%= fb.password_field :password_confirmation %>
+    <br />
+
+    <%= fb.submit "Submit" %>
+<% end %>

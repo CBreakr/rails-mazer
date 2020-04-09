@@ -1,4 +1,7 @@
-<div class="header">
-    <span class="current_user"><%= user.name %></span>
-    <%= button_to "Logout", {controller: :sessions, action: "destroy"}, method: :post %>
-</div>
+
+<% if user then %>
+    <div class="header">
+        <span class="current_user"><%= user.name %></span>
+        <%= button_to "Logout", {controller: :sessions, action: "destroy"}, method: :post %>
+    </div>
+<% end %>

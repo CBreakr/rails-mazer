@@ -14,7 +14,6 @@ class MazesController < ApplicationController
         length = maze_params[:length].to_i
         width = maze_params[:width].to_i
         if length.is_a?(Integer) && width.is_a?(Integer) && MazeProcessor.within_size_limits(length, width) then
-            byebug
             maze_processor = MazeProcessor.create_random_maze(length, width)
             @maze = Maze.new(maze_processor.create_hash)
             @maze.creator_id = @user.id

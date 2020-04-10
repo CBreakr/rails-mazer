@@ -1,0 +1,11 @@
+<%= @maze.name ? @maze.name : "No Name Set" %>
+
+<%= render partial: "/maze_detail_view", locals: {maze_processor: @maze_processor} %>
+
+<div>
+    This section for choosing what to do with maze, based on existing journey
+</div>
+
+<% if @maze.creator == @user then %>
+    This Section Reserved for Maze creator Only
+<% end %>

@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_08_004107) do
+ActiveRecord::Schema.define(version: 2020_04_09_200131) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "journeys", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "maze_id"
+    t.boolean "is_finished"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.string "maze_state_string"
+  end
 
   create_table "mazes", force: :cascade do |t|
     t.string "name"
@@ -23,6 +32,7 @@ ActiveRecord::Schema.define(version: 2020_04_08_004107) do
     t.integer "iteration"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.integer "creator_id"
   end
 
   create_table "users", force: :cascade do |t|

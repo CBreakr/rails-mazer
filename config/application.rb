@@ -31,5 +31,9 @@ module RailsMazer
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    # load the files in the lib directory
+    config.autoload_paths += %W(#{config.root}/lib)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
   end
 end

@@ -17,4 +17,11 @@ class ApplicationController < ActionController::Base
     def is_logged_in
         session.has_key?(:user_id) && session[:user_id].present?
     end
+
+    def check_user
+        @user = current_user
+        if !@user then
+            redirect_to login_path
+        end
+    end
 end

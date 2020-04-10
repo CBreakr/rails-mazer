@@ -1,0 +1,32 @@
+<h1><%= @maze_processor.name ? @maze_processor.name : "No Name Set" %></h1>
+
+<%= render partial: "/maze_detail_view", locals: {maze_processor: @maze_processor, journey: @journey} %>
+
+<%# controls for moving around the maze %>
+<% if defined?(journey) && !maze_processor.completed %>
+    <table>
+        <tr>
+            <td></td>
+            <td class="filled">
+                <%= button_to "UP", move_path(journey), params: {direction: "UP"} %>
+            </td>
+            <td></td>
+        </tr>
+        <tr>
+            <td class="filled">
+                <%= button_to "LEFT", move_path(journey), params: {direction: "LEFT"} %>
+            </td>
+            <td></td>
+            <td class="filled">
+                <%= button_to "RIGHT", move_path(journey), params: {direction: "RIGHT"} %>
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td class="filled">
+                <%= button_to "DOWN", move_path(journey), params: {direction: "DOWN"} %>
+            </td>
+            <td></td>
+        </tr>
+    </table>
+<% end %>

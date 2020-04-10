@@ -1,0 +1,13 @@
+<h1>Your Journeys</h1>
+
+<% @journeys.each do |j| %>
+    <p>
+        <div>Name: <%= j.maze.name ? j.maze.name : "No Name Set" %></div>
+        <div>Dimensions: <%= "length: #{j.maze.length}, width: #{j.maze.width}" %></div>
+        <div>Created By: <%= j.maze.creator == @user ? "YOU" : j.maze.creator.name %></div>
+        <% if j.is_finished then %>
+            <div>FINISHED!</div>
+        <% end %>
+        <div><%= button_to "View Journey", journey_path(j), method: :get %></div>
+    </p>
+<% end %>

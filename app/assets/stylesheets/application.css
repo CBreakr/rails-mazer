@@ -14,17 +14,69 @@
  *= require_self
  */
 
+* {
+    margin: 0;
+    padding: 0;
+}
+
 body {
     font-family: Arial, Helvetica, sans-serif;
+    padding: 8px;
 }
+
+hr {
+    margin: 4px auto 8px;
+}
+
+.main_container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    border-bottom: 1px solid black;
+    padding-bottom: 4px;
+    margin: 4px auto 12px auto;
+
+    display: flex;
+    justify-content: space-between;
+}
+
+.maze_form_container {
+    border-bottom: 1px solid black;
+    padding-bottom: 4px;
+    margin: 4px auto 8px auto;
+}
+
+.maze_entry {
+    padding: 4px;
+}
+
+.maze_entry:nth-child(odd) {
+    background-color: #bbd;
+}
+
+.journey_entry {
+    padding: 4px;
+}
+
+.journey_entry:nth-child(odd) {
+    background-color: #bdb;
+}
+
+
+/*
+
+*/
 
 .maze {
     background-color: black;
-    top: 10px;
-    left: 10px;
+    position: relative;
+    display: inline-block;
 }
 
 .maze_cell {
+    display: inline-block;
     position: absolute;
     width: 30px;
     height: 30px;
@@ -66,29 +118,49 @@ body {
     }
 }
 
-td{
-    padding: 2px 4px;
-    margin: 2px;
-    width: 50px;
+.controls {
+    display: inline-block;
+    vertical-align: top;
 }
 
-td.filled {
-    text-align: center;
+.filled, input[type="submit"] {
     background-color: black;
     color: white;
     border: 1px solid aqua;
+    padding: 2px 6px;
 }
 
-td.filled a{
-    color: white;
+.filled {
+    text-align: center;
     text-decoration: none;
+    width: 30px;
+    display: inline-block;
+    margin: 2px;
+    font-size: 20px;
 }
 
-td.filled:hover {
+.filled:hover, input[type="submit"]:hover {
     background-color: rgb(23, 141, 161);
-    color: rgb(12, 1, 1);
     border: 1px solid rgb(12, 1, 1);;
 }
+
+.inline_button {
+    display: inline;
+}
+
+input[type="submit"] {
+    font-size: 14px;
+    margin: 2px auto;
+}
+
+/*
+input[type="submit"] {
+    background-color: darkblue;
+    color: white;
+    padding: 2px;
+    border: 1px solid black;
+}
+*/
 
 /* motion simulation */
 

@@ -8,6 +8,7 @@ class MazesController < ApplicationController
 
     def show
         @maze_processor = MazeProcessor.create_from_model(@maze)
+        @maze_processor.hide_current_node
     end
 
     def create

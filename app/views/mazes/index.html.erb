@@ -1,24 +1,24 @@
-<h1>All Mazes</h1>
 
+<div class="maze_form_container">
 <%= form_for Maze.new do |fb| %>
-    <div>Create New Maze:</div>
-    <p>
-        <%= fb.label :length %>
-        <%= fb.number_field :length, min: MazeProcessor.minimum_size, max: MazeProcessor.maximum_size %>
-    </p>
-        <%= fb.label :width %>
-        <%= fb.number_field :width, min: MazeProcessor.minimum_size, max: MazeProcessor.maximum_size %>
-    <p>
-
-    </p>
+    <h3>Generate New Maze:</h3>
+    <%= fb.label :length %>
+    <%= fb.number_field :length, min: MazeProcessor.minimum_size, max: MazeProcessor.maximum_size %>
+    <%= fb.label :width %>
+    <%= fb.number_field :width, min: MazeProcessor.minimum_size, max: MazeProcessor.maximum_size %>
     <%= fb.submit %>
 <% end %>
+</div>
 
+<h1>All Mazes</h1>
+
+<div class="maze_list_container">
 <% @mazes.each do |maze| %>
-    <p>
+    <div class="maze_entry">
         <div>Name: <%= maze.name ? maze.name : "No Name Set" %></div>
         <div>Dimensions: <%= "length: #{maze.length}, width: #{maze.width}" %></div>
         <div>Created By: <%= maze.creator == @user ? "YOU" : maze.creator.name %></div>
         <div><%= button_to "View Maze", maze_path(maze), method: :get %></div>
-    </p>
+    </div>
 <% end %>
+</div>

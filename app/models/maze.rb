@@ -1,5 +1,5 @@
 class Maze < ApplicationRecord
-    has_many :journeys
+    has_many :journeys, :dependent => :delete_all
     has_many :users, through: :journeys
 
     def creator

@@ -1,32 +1,43 @@
-<h1><%= @maze_processor.name ? @maze_processor.name : "No Name Set" %></h1>
+<h1>
+<%= @maze_processor.name ? @maze_processor.name : "No Name Set" %>
+<%= button_to "Delete Journey", journey_path(@journey), method: :delete, form_class: "inline_button" %>
+</h1>
+
+<hr />
 
 <%= render partial: "/maze_detail_view", locals: {maze_processor: @maze_processor, journey: @journey} %>
 
 <%# controls for moving around the maze %>
-<% if defined?(journey) && !maze_processor.completed %>
-    <table>
-        <tr>
-            <td></td>
-            <td class="filled">
-                <%= button_to "UP", move_path(journey), params: {direction: "UP"} %>
-            </td>
-            <td></td>
-        </tr>
-        <tr>
-            <td class="filled">
-                <%= button_to "LEFT", move_path(journey), params: {direction: "LEFT"} %>
-            </td>
-            <td></td>
-            <td class="filled">
-                <%= button_to "RIGHT", move_path(journey), params: {direction: "RIGHT"} %>
-            </td>
-        </tr>
-        <tr>
-            <td></td>
-            <td class="filled">
-                <%= button_to "DOWN", move_path(journey), params: {direction: "DOWN"} %>
-            </td>
-            <td></td>
-        </tr>
-    </table>
+<% if defined?(@journey) %>
+    <div class="controls">
+    <% if !@maze_processor.completed %>
+        <table>
+            <tr>
+                <td></td>
+                <td>
+                    <%= link_to raw('<span class="filled">&#8593;</span>'), move_path(id: @journey.id, move: "UP"), method: :post %>
+                </td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>
+                    <%= link_to raw('<span class="filled">&#8592;</span>'), move_path(id: @journey.id, move: "LEFT"), method: :post %>
+                </td>
+                <td></td>
+                <td>
+                    <%= link_to raw('<span class="filled">&#8594;</span>'), move_path(id: @journey.id, move: "RIGHT"), method: :post %>
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    <%= link_to raw('<span class="filled">&#8595;</span>'), move_path(id: @journey.id, move: "DOWN"), method: :post %>
+                </td>
+                <td></td>
+            </tr>
+        </table>
+    <% else %>
+        COMPLETED!
+    <% end %>
+    </div>
 <% end %>

@@ -1,6 +1,6 @@
 class JourneysController < ApplicationController
     before_action :check_user
-    before_action :get_journey, only: [:show, :move, :delete]
+    before_action :get_journey, only: [:show, :move, :destroy]
 
     def index
         @journeys = @user.journeys
@@ -15,11 +15,11 @@ class JourneysController < ApplicationController
     end
 
     def create
-        journey = Journey.new(journey_params)
+        journey = Journey.new
+        journey.maze_id = params[:maze_id]
+        journey.user_id = params[:user_id]
         journey.is_finished = false
-        byebug
         journey.maze_state_string = MazeProcessor.create_from_model(journey.maze).create_hash.inspect
-        byebug
         journey.save
         redirect_to journey_path(journey)
     end
@@ -30,9 +30,10 @@ class JourneysController < ApplicationController
         if !maze then
             redirect_to mazes_path
         else
-            @maze_processor = MazeProcessor.create_from_model(maze)
+            @maze_processor = MazeProcessor.create_from_string(@journey.maze_state_string)
             updated = false
-            case params[:direction]
+
+            case params[:move]            
             when "UP"
                 # byebug
                 updated = @maze_processor.attempt_move_up
@@ -48,8 +49,9 @@ class JourneysController < ApplicationController
             end
 
             if updated
-                # byebug
-                maze.update(@maze_processor.create_hash)
+                @journey.is_finished = @maze_processor.completed
+                @journey.maze_state_string = @maze_processor.create_hash.inspect
+                @journey.save
             end
 
             # avoid doing another DB read and object creation
@@ -57,7 +59,7 @@ class JourneysController < ApplicationController
         end
     end
 
-    def delete
+    def destroy
         @journey.delete
         redirect_to journeys_path
     end
@@ -65,10 +67,10 @@ class JourneysController < ApplicationController
     private
 
     def get_journey
-        @journey = Journey.find(param([:id]))
+        @journey = Journey.find(params[:id])
     end
 
-    def journey_params
-        params.require(:journey).permit(:user_id, :maze_id)
-    end
+    # def journey_params
+    #     params.require(:journey).permit(:user_id, :maze_id)
+    # end
 end

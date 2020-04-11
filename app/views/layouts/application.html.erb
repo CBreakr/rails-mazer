@@ -11,10 +11,12 @@
 
   <body>
 
-    <% if !current_page?(login_path) && !current_page?(new_user_path) then %>
-      <%= render partial: "layouts/header", locals: {user: @user} %>
-    <% end %>
+    <div class="main_container">
+      <% if !current_page?(login_path) && !current_page?(new_user_path) then %>
+        <%= render partial: "layouts/header", locals: {user: @user} %>
+      <% end %>
 
-    <%= yield %>
+      <%= yield %>
+    </div>
   </body>
 </html>

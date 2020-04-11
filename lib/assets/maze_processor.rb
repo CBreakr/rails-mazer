@@ -12,6 +12,10 @@ class MazeProcessor
         25
     end
 
+    def hide_current_node
+        @current_node.is_current = false
+    end
+
     def self.within_size_limits(length, width)
         if length >= minimum_size && length <= maximum_size && width >= minimum_size && width <= maximum_size then
             return true
@@ -21,7 +25,7 @@ class MazeProcessor
 
     def self.create_from_string(str)
         hash = eval(str)
-        create(hash.name. hash.length, hash.width, hash.iteration, hash.maze_array_string)
+        create(hash[:name], hash[:length], hash[:width], hash[:iteration], hash[:maze_array_string])
     end
     
     def self.create_from_model(maze_model)
@@ -53,7 +57,7 @@ class MazeProcessor
         end
 
         if maze.current_node.is_end then
-            @completed = true
+            maze.completed = true
         end
 
         maze

@@ -13,15 +13,35 @@
 <%= render partial: "/maze_detail_view", locals: {maze_processor: @maze_processor} %>
 
 <div class="controls">
-    <% if @maze.current_user_journey(@user) %>
-        <%= button_to "Continue Journey", journey_path(@maze.current_user_journey(@user)), method: :get %>
-    <% else %>
-        <%= button_to "Start Journey", journeys_path, params: {user_id: @user.id, maze_id: @maze.id} %>
-    <% end %>
+    <% if !@maze.check_mode then %>    
+        <% if @maze.current_user_journey(@user) %>
+            <%= button_to "Continue Journey", journey_path(@maze.current_user_journey(@user)), method: :get %>
+        <% else %>
+            <%= button_to "Start Journey", journeys_path, params: {user_id: @user.id, maze_id: @maze.id} %>
+        <% end %>
 
-    <% if @maze.creator == @user then %>
-    <p>
-        <%= button_to "Delete Maze", maze_path(@maze), method: :delete %>
-    </p>
-<% end %>
+        <% if @maze.creator == @user then %>
+            <p>
+                <%= button_to "Delete Maze", maze_path(@maze), method: :delete, data: {confirm: "are you sure you want to delete this maze?"} %>
+            </p>
+            <br />
+            <p>
+                <%= button_to "Check Mode", check_solve_path(@maze) %>
+            </p>
+        <% end %>
+    <% elsif @maze.creator == @user then  %>
+        CHECK MODE
+        <% if !@solved %>
+            <p>
+                <%= button_to "Next Check Step", check_step_path(@maze) %>
+            </p>
+        <% else %>
+            <p class="visited">
+                MAZE IS SOLVABLE!
+            </p>
+        <% end %>
+        <p>
+            <%= button_to "Reset Maze", reset_path(@maze) %>
+        </p>
+    <% end %>
 </div>

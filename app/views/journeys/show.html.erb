@@ -1,6 +1,6 @@
 <h1>
 <%= @maze_processor.name ? @maze_processor.name : "No Name Set" %>
-<%= button_to "Delete Journey", journey_path(@journey), method: :delete, form_class: "inline_button" %>
+<%= button_to "Delete Journey", journey_path(@journey), method: :delete, form_class: "inline_button", data: {confirm: "are you sure you want to delete this journey?"} %>
 </h1>
 
 <hr />
@@ -37,7 +37,9 @@
             </tr>
         </table>
     <% else %>
-        COMPLETED!
+        <p class="visited">
+            COMPLETED!
+        </p>
     <% end %>
     </div>
 <% end %>

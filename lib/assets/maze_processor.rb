@@ -99,6 +99,7 @@ class MazeProcessor
         end
 
         # byebug
+        maze.reset # cleanup method, not important for algorithm
         maze.iteration = count
 
         return maze
@@ -109,7 +110,7 @@ class MazeProcessor
         # do this based on the length and width
         # 
         # get the bounds, translate into index 
-        # x * length + y * width
+        # x * width + y
         adj_list = []
         adjacent_indexes(node).each {|i| adj_list << maze_array[i] }
         adj_list
@@ -120,17 +121,13 @@ class MazeProcessor
             return false
         end
 
-        result = false
-
         queue = [@start_node]
 
         while queue.length > 0
             current = queue.shift
             if !current.is_visited then
                 if current.is_end then
-                    result = true
-                    reset # cleanup method, not important for algorithm
-                    break
+                    return true
                 end
                 current.is_visited = true
                 adj_list = adjacency_list(current) # helper method to get adjacent nodes
@@ -140,7 +137,7 @@ class MazeProcessor
             end
         end
 
-        return result
+        return false
     end
 
     def create_hash
@@ -180,11 +177,64 @@ class MazeProcessor
         set_current_node_by_index(left_index)
     end
 
+    def reset
+        maze_array.each do |node|
+            node.is_visited = false
+            node.is_current = false
+            node.is_seen = false
+            node.move_number = nil
+        end
+        start_node.is_current = true
+    end
+
+    def next_check_step
+        # this is going to be a really weird method...
+        current_node = find_current_node_for_check
+
+        current_node.is_visited = true
+        current_node.is_seen = false
+        adj_list = adjacency_list(current_node) # helper method to get adjacent nodes
+        adj_list.each do |node| 
+            if !node.is_visited && !node.is_barrier
+                node.is_seen = true 
+                if node.is_end then
+                    @completed = true
+                end
+            end
+        end
+    end
+
     ###########################
     ###########################
     ###########################
 
     private
+
+    def find_current_node_for_check
+        # find the node that's seen, closest to the start
+        # just loop through all the nodes
+        closest_seen = nil
+        distance = nil
+        maze_array.each do |node|
+            if node.is_seen && !node.is_start then
+                d = distance_between_nodes(node, @start_node)
+                if !closest_seen || d < distance then                    
+                    distance = d
+                    closest_seen = node
+                end
+            end
+        end
+
+        if !closest_seen then
+            closest_seen = @start_node
+        end
+
+        return closest_seen
+    end
+
+    def distance_between_nodes(node1, node2)
+        return (node1.x - node2.x).abs + (node1.y - node2.y).abs
+    end
 
     def set_current_node_by_index(index)
         if index && !@completed then
@@ -217,14 +267,6 @@ class MazeProcessor
             return x*@width + y
         end
         nil
-    end
-
-    def reset
-        maze_array.each do |node|
-            node.is_visited = false
-            node.is_current = false
-        end
-        start_node.is_current = true
     end
 
     def self.create_start_and_end_coordinates(length, width)

@@ -13,5 +13,9 @@ Rails.application.routes.draw do
 
   post "/journeys/:id/:move", to: "journeys#move", as: "move"
 
+  post "/mazes/:id/check_solve", to: "mazes#check_solve", as: "check_solve"
+  post "/mazes/:id/check_step", to: "mazes#check_step", as: "check_step"
+  post "/mazes/:id/reset", to: "mazes#reset", as: "reset"
+
   match '*path' => redirect('/'), via: :get
 end

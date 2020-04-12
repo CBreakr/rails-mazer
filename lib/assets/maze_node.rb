@@ -1,6 +1,6 @@
 
 class MazeNode
-    attr_accessor :x, :y, :is_start, :is_end, :is_visited, :is_barrier, :is_current, :move_number
+    attr_accessor :x, :y, :is_start, :is_end, :is_visited, :is_barrier, :is_current, :move_number, :is_seen
 
     # def initialize(x, y, set_random, start_node, end_node)
     def self.create_random(x, y)
@@ -32,11 +32,16 @@ class MazeNode
         if is_start then
             cl = "start"
         elsif is_end then
-            cl = "end"
+            if is_seen then
+                cl = "seen"
+            end
+            cl += "end"
         elsif is_visited then
             cl = "visited"
         elsif is_barrier then
             cl = "barrier"
+        elsif is_seen then
+            cl = "seen"
         end
 
         if is_current then
@@ -55,6 +60,7 @@ class MazeNode
             is_visited: @is_visited, 
             is_barrier: @is_barrier, 
             is_current: @is_current,
+            is_seen: @is_seen,
             move_number: @move_number
         }
     end
@@ -68,6 +74,7 @@ class MazeNode
         node.is_visited = hash["is_visited"]
         node.is_barrier = hash["is_barrier"]
         node.is_current = hash["is_current"]
+        node.is_seen = hash["is_seen"]
         node.move_number = hash["move_number"]
         node
     end

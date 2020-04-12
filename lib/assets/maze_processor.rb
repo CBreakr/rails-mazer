@@ -125,7 +125,7 @@ class MazeProcessor
         queue = [@start_node]
 
         while queue.length > 0
-            current = queue[0]
+            current = queue.shift
             if !current.is_visited then
                 if current.is_end then
                     result = true
@@ -138,8 +138,6 @@ class MazeProcessor
                     queue << node if !node.is_visited && !node.is_barrier
                 end
             end
-
-            queue.shift
         end
 
         return result

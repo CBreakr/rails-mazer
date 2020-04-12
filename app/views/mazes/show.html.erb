@@ -12,16 +12,16 @@
 
 <%= render partial: "/maze_detail_view", locals: {maze_processor: @maze_processor} %>
 
-<div>
+<div class="controls">
     <% if @maze.current_user_journey(@user) %>
         <%= button_to "Continue Journey", journey_path(@maze.current_user_journey(@user)), method: :get %>
     <% else %>
         <%= button_to "Start Journey", journeys_path, params: {user_id: @user.id, maze_id: @maze.id} %>
     <% end %>
-</div>
 
-<% if @maze.creator == @user then %>
+    <% if @maze.creator == @user then %>
     <p>
         <%= button_to "Delete Maze", maze_path(@maze), method: :delete %>
     </p>
 <% end %>
+</div>

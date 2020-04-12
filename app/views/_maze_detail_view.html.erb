@@ -1,10 +1,14 @@
+<% scale_factor = (maze_processor.length + maze_processor.width).to_f/30 %>
+<% scale_factor = 1 if scale_factor < 1 %>
+
 <% top = 5; left = 5; %>
-<% width = maze_processor.length * 35 + 10 %>
-<% height = maze_processor.width * 35 + 10 %>
+<% width = (maze_processor.length * 35 + 10)/scale_factor %>
+<% height = (maze_processor.width * 35 + 10)/scale_factor %>
 
 <div class="maze" style="width:<%= width %>px; height:<%= height%>px;">
     <% maze_processor.maze_array.each do |node| %>
-        <span class="maze_cell <%= node.class_name %>" style="top: <%= top + node.y * 35 %>px; left: <%= left + node.x * 35 %>px;">
+        <span class="maze_cell <%= node.class_name %>" 
+        style="width: <%= 30/scale_factor %>px; height: <%= 30/scale_factor %>px; top: <%= (top + node.y * 35)/scale_factor %>px; left: <%= (left + node.x * 35)/scale_factor %>px;">
             <%# "#{node.x}, #{node.y}" %>
         </span>
     <% end %>

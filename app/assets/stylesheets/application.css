@@ -78,8 +78,6 @@ hr {
 .maze_cell {
     display: inline-block;
     position: absolute;
-    width: 30px;
-    height: 30px;
     margin: 1px;
 }
 

@@ -9,7 +9,7 @@ class MazeProcessor
     end
 
     def self.maximum_size
-        25
+        40
     end
 
     def hide_current_node

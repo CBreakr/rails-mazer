@@ -5,11 +5,13 @@ Rails.application.routes.draw do
 
   # what about for the Journey model?
 
-  root "application#welcome"
+  root "mazes#index"
 
   get '/login', to: 'sessions#new', as: "login"
   post '/login', to: 'sessions#create'
   post '/logout', to: 'sessions#destroy', as: "logout"
 
   post "/journeys/:id/:move", to: "journeys#move", as: "move"
+
+  match '*path' => redirect('/'), via: :get
 end

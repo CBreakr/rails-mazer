@@ -5,7 +5,7 @@
 <% width = (maze_processor.length * 35 + 10)/scale_factor %>
 <% height = (maze_processor.width * 35 + 10)/scale_factor %>
 
-<div style="display: inline-block">
+<div class="maze_detail_container">
     <div class="maze" style="width:<%= width %>px; height:<%= height%>px;">    
         <% maze_processor.maze_array.each do |node| %>
             <% width = 30/scale_factor %>
@@ -23,6 +23,6 @@
             </span>
         <% end %>    
     </div>
-    <div>Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    <div class="icons">Icons made by <a href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
 </div>
 

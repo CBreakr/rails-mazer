@@ -162,6 +162,15 @@ input[type="submit"] {
     margin: 2px auto;
 }
 
+.maze_detail_container {
+    display: inline-block; 
+    margin-right: 12px;
+}
+
+.icons {
+    font-size: 12px;
+}
+
 /*
 input[type="submit"] {
     background-color: darkblue;
